@@ -8,9 +8,9 @@
             </p>
         </div>
         <div class="counterContainer">
-            <button v-on:click="menu.counter--; subtractItem(menu.item, menu.counter);" class="subBtn">-</button>
+            <button :disabled="menu.counter<1" v-on:click="menu.counter--; subtractItem(menu.item, menu.counter); total();" class="subBtn">-</button>
                 <p class="counterDisplay">{{ menu.counter }}</p>
-            <button v-on:click="menu.counter++; addItem(menu.item, menu.counter);" class="addBtn">+</button>
+            <button v-on:click="menu.counter++; addItem(menu.item, menu.counter); total();" class="addBtn">+</button>
         </div>
     </div>
     <div>
@@ -19,16 +19,22 @@
         </div>
         <ul>
             <template v-for="menu in menus" :key="menu.item">
-                <li v-if="menu.counter>0">{{ menu.item }} - x{{ menu.counter }}</li>
+                <li v-if="menu.counter>0">x{{ menu.counter }} - {{ menu.item }} - ${{ menu.price }}</li>
             </template>
         </ul>
+        <hr v-if="sum>0">
+        <div style="font-weight: bold; font-size: 15px;">
+            <div>Total: ${{ formatMoney(sum) }}</div>
+        </div>
     </div>
+    <button v-if="sum>0" class="resetBtn">Reset</button>
+    <button v-if="sum>0" class="reviewBtn">Review Order</button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'HmaburgerMenuApp',
+  name: 'HamburgerMenuApp',
   components: {
   },
   data(){
@@ -53,7 +59,8 @@ export default defineComponent({
                 counter:0
             },
         ],
-        order: [{}]
+        order: [{}],
+        sum: 0
       }
   },
   methods: {
@@ -68,7 +75,18 @@ export default defineComponent({
           if(this.order.includes(itemName)){
               console.log("how's it going, son?")
           }
-      }
+      },
+      total(){
+          var temp = 0.00
+          for(var i = 0; i<this.menus.length; i++){
+              temp += this.menus[i].price * this.menus[i].counter;
+          }
+          this.sum = temp;
+      },
+      formatMoney(value: number) {
+        let val = (value/1).toFixed(2).replace('.', '.')
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+    }
   }
 });
 </script>
@@ -129,5 +147,15 @@ export default defineComponent({
 }
 .item{
     font-size: 20px;
+}
+.resetBtn, .reviewBtn{
+    display: inline;
+    width: 110px;
+    height: 45px;
+    margin: 30px;
+    border-radius: 3%;
+}
+hr{
+    width: 100px;
 }
 </style>
