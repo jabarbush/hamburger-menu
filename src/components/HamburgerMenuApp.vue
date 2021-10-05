@@ -1,13 +1,7 @@
 <template>
-    <div
-        v-for="menu in menus"
-        :key="menu.item"
-        class="card"
+    <div v-for="menu in menus" :key="menu.item" class="card"
     > <!-- loop through menus array to display all food cards-->
-        <img
-            :src="menu.image"
-            class="image" 
-        />
+        <img :src="menu.image" class="image" />
         <div class="info">
             <div class="item">
                 {{ menu.item }}
@@ -17,33 +11,24 @@
             </p>
         </div>
         <div class="counterContainer">
-            <button
-                :disabled="menu.counter<1 || isActive"
-                v-on:click="menu.counter--; total();"
-                class="subBtn"
-            >-
+            <button :disabled="menu.counter<1 || isActive" v-on:click="menu.counter--; total();" class="subBtn">
+                -
             </button>
                 <p class="counterDisplay">
                     {{ menu.counter }}
                 </p>
-            <button
-                :disabled="isActive"
-                v-on:click="menu.counter++;total();"
-                class="addBtn"
-            >+
+            <button :disabled="isActive" v-on:click="menu.counter++;total();" class="addBtn">
+                +
             </button>
         </div>
     </div>
     <br>
     <div v-if="!isActive"> <!-- only this section or the summary are active and rendered at a time-->
         <div style="text-decoration: underline; font-size: 20px;">
-        Subtotal:
+            Subtotal:
         </div>
         <ul>
-            <template
-                v-for="menu in menus"
-                :key="menu.item"
-            >
+            <template v-for="menu in menus" :key="menu.item">
                 <li v-if="menu.counter>0">
                     x{{ menu.counter }} - {{ menu.item }} - ${{ formatMoney(menu.price*menu.counter) }}
                 </li>
@@ -55,22 +40,16 @@
                 Total: ${{ formatMoney(sum) }}
             </div>
         </div>
-        <button
-            v-if="sum>0"
-            v-on:click="reset();"
-            class="resetBtn"
-        >Start Over
+        <button v-if="sum>0" v-on:click="reset();" class="resetBtn">
+            Start Over
         </button>
-        <button
-            v-if="sum>0"
-            v-on:click="showSummary();"
-            class="reviewBtn"
-            >Complete Order
+        <button v-if="sum>0" v-on:click="showSummary();" class="reviewBtn">
+            Complete Order
         </button>
     </div>
     <div v-if="isActive">
         <div style="text-decoration: underline; font-size: 20px;">
-        Order Summary:
+            Order Summary:
         </div>
         <ul>
             <template v-for="menu in menus" :key="menu.item">
@@ -81,11 +60,16 @@
         <div style="font-weight: bold; font-size: 15px;">
             <div>Total: ${{ formatMoney(sum) }}</div>
         </div>
-        <button v-on:click="reset();" class="resetBtn">Start Over</button>
-        <button v-on:click="postOrder();" class="reviewBtn">Place Order</button>
-        <div v-if="success">Order successfully placed!</div>
+        <button v-on:click="reset();" class="resetBtn">
+            Start Over
+        </button>
+        <button v-on:click="postOrder();" class="reviewBtn">
+            Place Order
+        </button>
+        <div v-if="success">
+            Order successfully placed!
+        </div>
     </div>
-    
 </template>
 
 <script lang="ts">
@@ -210,7 +194,6 @@ export default defineComponent({
     line-height: 13px;
     font-weight: bold;
     font-size: 17px;
-    
 }
 .addBtn{
     border-radius: 0 3px 3px 0;

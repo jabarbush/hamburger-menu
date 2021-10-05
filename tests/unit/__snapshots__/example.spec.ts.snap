@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HamburgerMenuApp.vue renders component 1`] = `
+<div
+  data-v-app=""
+>
+  
+  
+  <div
+    class="card"
+  >
+    <!-- loop through menus array to display all food cards-->
+    <img
+      class="image"
+      src="https://i.pinimg.com/originals/b6/94/a3/b694a3e877fe852dd7e764f2684b1710.png"
+    />
+    <div
+      class="info"
+    >
+      <div
+        class="item"
+      >
+        Burger
+      </div>
+      <p
+        class="price"
+      >
+         $5.99
+      </p>
+    </div>
+    <div
+      class="counterContainer"
+    >
+      <button
+        class="subBtn"
+        disabled=""
+      >
+        - 
+      </button>
+      <p
+        class="counterDisplay"
+      >
+        0
+      </p>
+      <button
+        class="addBtn"
+      >
+        + 
+      </button>
+    </div>
+  </div>
+  <div
+    class="card"
+  >
+    <!-- loop through menus array to display all food cards-->
+    <img
+      class="image"
+      src="https://static.thenounproject.com/png/82817-200.png"
+    />
+    <div
+      class="info"
+    >
+      <div
+        class="item"
+      >
+        Fries
+      </div>
+      <p
+        class="price"
+      >
+         $2.99
+      </p>
+    </div>
+    <div
+      class="counterContainer"
+    >
+      <button
+        class="subBtn"
+        disabled=""
+      >
+        - 
+      </button>
+      <p
+        class="counterDisplay"
+      >
+        0
+      </p>
+      <button
+        class="addBtn"
+      >
+        + 
+      </button>
+    </div>
+  </div>
+  <div
+    class="card"
+  >
+    <!-- loop through menus array to display all food cards-->
+    <img
+      class="image"
+      src="https://i.pinimg.com/originals/cf/c2/9c/cfc29cd95b56c9d3f5debfd67eafd69c.png"
+    />
+    <div
+      class="info"
+    >
+      <div
+        class="item"
+      >
+        Drink
+      </div>
+      <p
+        class="price"
+      >
+         $1.99
+      </p>
+    </div>
+    <div
+      class="counterContainer"
+    >
+      <button
+        class="subBtn"
+        disabled=""
+      >
+        - 
+      </button>
+      <p
+        class="counterDisplay"
+      >
+        0
+      </p>
+      <button
+        class="addBtn"
+      >
+        + 
+      </button>
+    </div>
+  </div>
+  
+  <br />
+  <div>
+    <!-- only this section or the summary are active and rendered at a time-->
+    <div
+      style="text-decoration: underline; font-size: 20px;"
+    >
+       Subtotal: 
+    </div>
+    <ul>
+      
+      
+      <!--v-if-->
+      
+      
+      <!--v-if-->
+      
+      
+      <!--v-if-->
+      
+      
+    </ul>
+    <!--v-if-->
+    <div
+      style="font-weight: bold; font-size: 15px;"
+    >
+      <div>
+         Total: $0.00
+      </div>
+    </div>
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+  <!--v-if-->
+  
+</div>
+`;
