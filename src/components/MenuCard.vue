@@ -36,6 +36,8 @@ export default {
       },
       add(){
           this.counter++;
+          let value = this.counter;
+          this.$emit('clicked', value);
       }
   }
 }
