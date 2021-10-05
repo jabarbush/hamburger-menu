@@ -1,6 +1,6 @@
 <template>
     <div v-for="menu in menus" :key="menu.item" class="card">
-        <img v-bind:src="menu.image" class="image" />
+        <img :src="menu.image" class="image" />
         <div class="info">
             <div class="item">{{ menu.item }}</div>
             <p class="price">
@@ -8,84 +8,83 @@
             </p>
         </div>
         <div class="counterContainer">
-            <button :disabled="menu.counter<1" v-on:click="menu.counter--; subtractItem(menu.item, menu.counter); total();" class="subBtn">-</button>
+            <button :disabled="menu.counter<1" v-on:click="menu.counter--; total();" class="subBtn">-</button>
                 <p class="counterDisplay">{{ menu.counter }}</p>
-            <button v-on:click="menu.counter++; addItem(menu.item, menu.counter); total();" class="addBtn">+</button>
+            <button v-on:click="menu.counter++; total();" class="addBtn">+</button>
         </div>
     </div>
-    <div>
+    <br>
+    <div v-if="!isActive">
         <div style="text-decoration: underline; font-size: 20px;">
         Subtotal:
         </div>
         <ul>
             <template v-for="menu in menus" :key="menu.item">
-                <li v-if="menu.counter>0">x{{ menu.counter }} - {{ menu.item }} - ${{ menu.price }}</li>
+                <li v-if="menu.counter>0">x{{ menu.counter }} - {{ menu.item }} - ${{ formatMoney(menu.price*menu.counter) }}</li>
             </template>
         </ul>
         <hr v-if="sum>0">
         <div style="font-weight: bold; font-size: 15px;">
             <div>Total: ${{ formatMoney(sum) }}</div>
         </div>
+
     </div>
-    <button v-if="sum>0" class="resetBtn">Reset</button>
-    <button v-if="sum>0" class="reviewBtn">Review Order</button>
+    <div v-if="isActive">
+    </div>
+    <button v-if="sum>0" v-on:click="reset();" class="resetBtn">Start Over</button>
+    <button v-if="sum>0" v-on:click="showSummary();" class="reviewBtn">Complete Order</button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'HamburgerMenuApp',
-  components: {
-  },
   data(){
       return{
           menus: [
             {
                 item: "Burger",
                 price: 5.99,
-                image: "./assets/burger.png",
+                image: "https://i.pinimg.com/originals/b6/94/a3/b694a3e877fe852dd7e764f2684b1710.png",
                 counter:0
             },
             {
                 item: "Fries",
                 price: 2.99,
-                image: "./assets/fries.png",
+                image: "https://static.thenounproject.com/png/82817-200.png",
                 counter:0
             },
             {
                 item: "Drink",
                 price: 1.99,
-                image: "./assets/drink.png",
+                image: "https://i.pinimg.com/originals/cf/c2/9c/cfc29cd95b56c9d3f5debfd67eafd69c.png",
                 counter:0
             },
         ],
-        order: [{}],
-        sum: 0
+        sum: 0,
+        isActive: false
       }
   },
   methods: {
-      addItem(itemName: string, counterAmt: number){
-          if(!this.order.length){
-            let temp = [{item: itemName, counter: counterAmt }]
-            this.order.push(temp);
-            console.log(this.order[0])
-          }
-      },
-      subtractItem(itemName: string, counterAmt: number){
-          if(this.order.includes(itemName)){
-              console.log("how's it going, son?")
-          }
-      },
-      total(){
-          var temp = 0.00
-          for(var i = 0; i<this.menus.length; i++){
-              temp += this.menus[i].price * this.menus[i].counter;
-          }
-          this.sum = temp;
-      },
-      formatMoney(value: number) {
-        let val = (value/1).toFixed(2).replace('.', '.')
-        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+    total(){
+        var temp = 0;
+        for(var i = 0; i<this.menus.length; i++){
+            temp += this.menus[i].price * this.menus[i].counter;
+        }
+        this.sum = temp;
+    },
+    formatMoney(value: number) {
+        let val = (value/1).toFixed(2).replace('.', '.');
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    reset(){
+        for(var i = 0; i<this.menus.length; i++){
+            this.menus[i].counter = 0;
+        }
+        this.sum = 0;
+    },
+    showSummary(){
+        this.isActive = !this.isActive;
     }
   }
 });
@@ -94,7 +93,7 @@ export default defineComponent({
 <style>
 .card{
     display: inline-block;
-    border: 2px solid black;
+    border: 2px solid #dee0ee;
     padding: 20px;
     margin: 20px;
     border-radius: 3%;
@@ -150,12 +149,23 @@ export default defineComponent({
 }
 .resetBtn, .reviewBtn{
     display: inline;
-    width: 110px;
+    width: 120px;
     height: 45px;
     margin: 30px;
-    border-radius: 3%;
+    border-radius: 8%;
+}
+.reviewBtn{
+    background-color: #aaf7a8
+}
+.resetBtn{
+    background-color: #fa9898;
 }
 hr{
     width: 100px;
+}
+li{
+    list-style-type: none;
+    text-align: center;
+    margin-left:-30px;
 }
 </style>
